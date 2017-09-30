@@ -18,9 +18,17 @@ int main( void )
 	printf( "Compressed size: %d\n", compressed_size );
 
 	printf( "Compressed data:\n" );
-	for( uint8_t i = 0; i < compressed_size; i++ )
+	for( uint32_t i = 0; i < compressed_size; i++ )
 	{
-		printf("%d\n", data_arr[i] );
+		printf( "%d\n", data_arr[i] );
+	}
+
+	rle_uncompress( data_arr, data_size, compressed_size );
+
+	printf( "Restored data:\n" );
+	for( uint32_t i = 0; i < data_size; i++ )
+	{
+		printf( "%d\n", data_arr[i] );
 	}
 
 	return 0;
