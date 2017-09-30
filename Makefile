@@ -4,9 +4,9 @@ BUILD_DIR = build
 CC = gcc
 CFLAGS = -g -Wall -Werror
 
-all: dir $(BUILD_DIR)/$(TARGET)
+all: dir $(TARGET)
 
-$(BUILD_DIR)/$(TARGET): main.o rle.o
+$(TARGET): main.o rle.o
 	$(CC) $(CFLAGS) $(BUILD_DIR)/main.o $(BUILD_DIR)/rle.o -o $(BUILD_DIR)/$(TARGET)
 
 main.o: main.c rle.h
