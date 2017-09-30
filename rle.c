@@ -1,15 +1,29 @@
+/**
+ * @file rle.c
+ * @author Jesse Tham
+ * @date September 30th, 2017
+ * @brief Run length encoding algorithm implementation in C
+ *
+ */
+
 #include <stdlib.h>
 #include "rle.h"
 
+// Maximum value that can be stored for the repeating data counter
 #define RLE_MAX_CONSECUTIVE_SIZE 255
-#define RLE_NON_CONSEC_MASK 0x80
+// Mask that sets the MSB to denote that the value did not repeat
+#define RLE_NO_REPEAT_MASK 0x80
 
 uint32_t rle_compress( uint8_t* data_array, uint32_t data_size )
 {
-	uint32_t data_index = 0, new_index = 0;
+	// Points to uncompressed data
+	uint32_t data_index = 0;
+	// Points to the compressed data
+	uint32_t new_index = 0;
 
 	while( data_index < data_size )
 	{
+
 		uint8_t consecutive_counter = 0;
 		data_array[new_index++] = data_array[data_index];
 		while( data_array[data_index] == data_array[new_index - 1] &&
@@ -20,9 +34,10 @@ uint32_t rle_compress( uint8_t* data_array, uint32_t data_size )
 			data_index++;
 		}
 
+		// Check if the value didn't consecutively repeat
 		if( consecutive_counter == 1 )
 		{
-			data_array[new_index - 1] |= RLE_NON_CONSEC_MASK;
+			data_array[new_index - 1] |= RLE_NO_REPEAT_MASK;
 		}
 		else
 		{
@@ -30,19 +45,22 @@ uint32_t rle_compress( uint8_t* data_array, uint32_t data_size )
 		}
 	}
 
+	// Calculate and return the new size of the data array
 	return new_index * sizeof( uint8_t );
 }
 
 void rle_uncompress( uint8_t* data_array, uint32_t original_size, uint32_t compressed_size )
 {
-	uint8_t* temp_array = calloc( original_size, sizeof( uint8_t ) );
-	uint32_t data_index = 0, temp_index = 0;
+	uint8_t* temp_array = malloc( original_size * sizeof( uint8_t ) );
+	uint32_t data_index = 0;
+	uint32_t temp_index = 0;
 
 	while( data_index < compressed_size )
 	{
-		if( data_array[data_index] & RLE_NON_CONSEC_MASK )
+		// Check if the data didn't consecutively repeat
+		if( data_array[data_index] & RLE_NO_REPEAT_MASK )
 		{
-			temp_array[temp_index++] = data_array[data_index++] ^ RLE_NON_CONSEC_MASK;
+			temp_array[temp_index++] = data_array[data_index++] ^ RLE_NO_REPEAT_MASK;
 		}
 		else
 		{
@@ -56,6 +74,7 @@ void rle_uncompress( uint8_t* data_array, uint32_t original_size, uint32_t compr
 		}
 	}
 
+	// Copy data from temp array to the input array
 	for( uint8_t i = 0; i < original_size; i++ )
 	{
 		data_array[i] = temp_array[i];
