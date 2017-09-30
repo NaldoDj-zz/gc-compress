@@ -2,6 +2,7 @@
 #include "rle.h"
 
 #define RLE_MAX_CONSECUTIVE_SIZE 255
+#define RLE_NON_CONSEC_MASK 0x80
 
 uint32_t rle_compress( uint8_t* data_array, uint32_t data_size )
 {
@@ -24,7 +25,15 @@ uint32_t rle_compress( uint8_t* data_array, uint32_t data_size )
 			consecutive_counter++;
 			data_index++;
 		}
-		temp_array[temp_index++] = consecutive_counter;
+
+		if( consecutive_counter == 1 )
+		{
+			temp_array[temp_index - 1] |= RLE_NON_CONSEC_MASK;
+		}
+		else
+		{
+			temp_array[temp_index++] = consecutive_counter;
+		}
 	}
 
 	for( uint8_t i = 0; i < data_size; i++ )

@@ -22,7 +22,6 @@ int main( void )
 	{
 		printf("%d\n", data_arr[i] );
 	}
-	printf( "\n" );
 
 	return 0;
 }
