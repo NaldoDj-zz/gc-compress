@@ -10,12 +10,12 @@
  * Run-length encoding (RLE) is a lossless data compression algorithm that takes advantage
  * of consecutive repeating data. The algorithm counts how many times the data repeats and then
  * stores it as a pair where the first value is the data itself and the second is how many times
- * it was repeated (ex. 'aaaabbbccccc' turns into 'a4b3c5').
+ * it was repeated. Ex: 'aaaabbbccccc' turns into 'a4b3c5'.
  *
- * This version of the compression algorithm uses the most significant bit of a data byte to
- * check if the data byte did not repeat. This prevents it from taking more space
- * than it did when uncompressed (i.e. The data stream 'aaabcc' turns into 'a3bc2' instead
- * of 'a3b1c2'). This means that the compression algorithm can only work on unsigned, 7-bit
+ * This version of the compression algorithm sets the most significant bit of a data byte to
+ * denote if the data byte did not repeat. This prevents it from taking more space
+ * than it did when uncompressed. Ex: The data stream 'aaabcc' turns into 'a3bc2' (where 'b' has its MSB
+ * set) instead of 'a3b1c2'. This means that the compression algorithm can only work on unsigned, 7-bit
  * values. This version also automatically chunks data into bytes and therefore cannot detect
  * repeating values that are smaller or larger than 8 bits.
  *

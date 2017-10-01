@@ -4,6 +4,8 @@
  * @date September 30th, 2017
  * @brief Run length encoding algorithm implementation in C
  *
+ * Detailed description can be found in rle.h
+ *
  */
 
 #include <stdlib.h>
@@ -23,7 +25,6 @@ uint32_t rle_compress( uint8_t* data_array, uint32_t data_size )
 
 	while( data_index < data_size )
 	{
-
 		uint8_t consecutive_counter = 0;
 		data_array[new_index++] = data_array[data_index];
 		while( data_array[data_index] == data_array[new_index - 1] &&

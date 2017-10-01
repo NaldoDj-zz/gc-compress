@@ -6,7 +6,7 @@ This repository contains an implementation of run-length encoding to compress a 
 
 ## Dependencies
 
-* gcc
+* GCC
 * GNU Make
 
 ## How to run
