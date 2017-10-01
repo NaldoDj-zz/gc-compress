@@ -1,16 +1,24 @@
+/**
+ * @file main.c
+ * @author Jesse Tham
+ * @date September 30th, 2017
+ * @brief Application code
+ *
+ * Application code to demonstrate the usage of rle_compress and rle_uncompress
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include "rle.h"
-
-#define INPUT_BUFFER_SIZE 6
 
 int main( void )
 {
 	uint8_t data_arr[] = { 0x03, 0x74, 0x04, 0x04, 0x04, 0x35, 0x35, 0x64,
 		0x64, 0x64, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x56, 0x45, 0x56, 0x56, 0x56, 0x09, 0x09, 0x09 };
-	uint32_t data_size = 24;
+	uint32_t data_size = sizeof( data_arr );
 
 	const uint32_t compressed_size = rle_compress( data_arr, data_size );
 
