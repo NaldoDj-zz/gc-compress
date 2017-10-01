@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "rle.h"
 
-// Maximum value that can be stored for the repeating data counter
+// Maximum value that can be stored in the consecutive counter
 #define RLE_MAX_CONSECUTIVE_SIZE 255
 // Mask that sets the MSB to denote that the value did not repeat
 #define RLE_NO_REPEAT_MASK 0x80
