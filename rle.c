@@ -80,4 +80,5 @@ void rle_uncompress( uint8_t* data_array, uint32_t original_size, uint32_t compr
 	{
 		data_array[i] = temp_array[i];
 	}
+	free( temp_array );
 }
