@@ -46,8 +46,8 @@ uint32_t rle_compress( uint8_t* data_array, uint32_t data_size )
 		}
 	}
 
-	// Calculate and return the new size of the data array
-	return new_index * sizeof( uint8_t );
+	// Return the new size of the data array
+	return new_index;
 }
 
 void rle_uncompress( uint8_t* data_array, uint32_t original_size, uint32_t compressed_size )
